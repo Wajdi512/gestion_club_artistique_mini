@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+
+<title>Gérer les activiés</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col border-bottom">
+				<h1>Gérer Les activités:</h1>
+				<hr>
+				<div
+					th:insert="~{fragments/my-template :: addActiviteForm}"></div>
+
+			</div>
+		</div>
+		<div class="row" style="padding-top: 10px">
+			<div class="col border-bottom">
+				<h2>Trouver vos activités:</h2>
+				<form th:action="@{/activites}" th:object="${searchCriteria}"
+					method="get" class="form-inline">
+					<div class="form-group mb-2">
+						<label for="titre">Titre:</label> <input class="form-control"
+							type="text" th:field="*{titreActivite}" />
+					</div>
+					<div class="form-group mx-sm-3 mb-2">
+						<label for="Coach">Coach:</label> <input class="form-control"
+							type="text" th:field="*{nomCoach}" />
+					</div>
+					<button type="submit" class="btn btn-warning mb-2">Rechercher</button>
+				</form>
+
+			</div>
+		</div>
+		<div class="row" style="padding-top: 10px">
+			<div class="col">
+				<table border="1" class="table">
+					<thead>
+						<tr>
+							<th>Titre</th>
+							<th>Descripion</th>
+							<th>Coachs</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${activites.empty}">
+							<td colspan="3">Pas des activités</td>
+						</tr>
+						<tr th:each="act : ${activites}">
+							<td><span th:text="${act.titre}" style="font-weight: 700">
+							</span><br> <img heigth="100" width="100"
+								th:src="@{/images/{img} (img=${act.image})}"></td>
+							<td width="40%"><span th:text="${act.description}"> </span></td>
+							<td>
+								<ul>
+									<li th:each="coach : ${act.coachs}" th:text="|${coach.nom} ${coach.prenom}|"></li>
+								</ul>
+							</td>
+							<td><a href="#" class="btn btn-primary"
+								style="position: relative;"
+								th:href="@{/activites/edit/{id} (id=${act.id})}">Modifier</a> |
+								<a th:href="@{/activites/delete/{id} (id=${act.id})}"
+								class="btn btn-danger" style="position: relative;">Supprimer</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

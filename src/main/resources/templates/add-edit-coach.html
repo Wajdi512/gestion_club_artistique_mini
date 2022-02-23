@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<title>Ajout Coach</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div th:insert="~{fragments/my-template :: addCoachForm}"></div>
+			</div>
+		</div>
+		<div th:if="${message != null && message.length() > 0}" class="alert alert-info" role="alert" th:text="${message}"></div>
+
+	</div>
+	<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

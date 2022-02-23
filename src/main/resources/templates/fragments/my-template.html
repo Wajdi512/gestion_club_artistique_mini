@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+
+</head>
+<body>
+	<div th:fragment="addActiviteForm">
+		<h2>Ajout activité:</h2>
+		<img width="100" height="100" th:if="${newActivite.image} != null"
+			th:src="@{/images/{img} (img=${newActivite.image})}">
+
+		<form action="#" th:action="@{/activites}" th:object="${newActivite}"
+			method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="titre">Titre</label> <input class="form-control"
+					type="text" th:field="*{titre}" />
+			</div>
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group">
+				<label for="description">Description</label>
+				<textarea class="form-control" row=3 type="text" maxlength="255"
+					th:field="*{description}" />
+			</div>
+			    <label for="image">Image: </label>     <input type="file"
+				th:field="*{fileDatas}" accept="image/png, image/jpeg" />
+
+			<p>
+				<button type="submit" class="btn btn-primary">Sauvegarder</button>
+			</p>
+		</form>
+	</div>
+
+	<div th:fragment="addCoachForm">
+		<h2>Ajout coach:</h2>
+		<form action="#" th:action="@{/coachs/add}" th:object="${newCoach}"
+			method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="nom">Nom</label> <input class="form-control" type="text"
+					th:field="*{nom}" />
+			</div>
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group">
+				<label for="prenom">Prenom</label>
+				<textarea class="form-control" row=3 type="text" maxlength="255"
+					th:field="*{prenom}" />
+			</div>
+			<div class="form-group">
+				<label for="description">Choisir une activité:</label> <select
+					class="form-control" multiple="multiple" th:field="*{lesActivites}">
+					<option th:each="act : ${lesActivites}" th:value="${act.id}"
+						th:text="|${act.titre} - ${act.description}" />
+				</select>
+
+			</div>
+
+			    <label for="image">Photo: </label>     <input type="file"
+				th:field="*{fileDatas}" accept="image/png, image/jpeg" />
+
+			<p>
+				<button type="submit" class="btn btn-primary">Sauvegarder</button>
+			</p>
+		</form>
+	</div>
+
+
+</body>
+</html>
