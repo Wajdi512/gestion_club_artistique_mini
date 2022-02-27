@@ -17,9 +17,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CoachForm {
-	private Integer id;
-	private String nom;
-	private String prenom;
+	protected Integer id;
+	protected String nom;
+	protected String prenom;
+	protected String bio;
 	private List<Integer> lesActivites = new ArrayList<>(0);
 	private MultipartFile[] fileDatas;
 }

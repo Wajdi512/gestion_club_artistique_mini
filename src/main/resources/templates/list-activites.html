@@ -14,8 +14,7 @@
 			<div class="col border-bottom">
 				<h1>Gérer Les activités:</h1>
 				<hr>
-				<div
-					th:insert="~{fragments/my-template :: addActiviteForm}"></div>
+				<div th:insert="~{fragments/my-template :: addActiviteForm}"></div>
 
 			</div>
 		</div>
@@ -59,7 +58,9 @@
 							<td width="40%"><span th:text="${act.description}"> </span></td>
 							<td>
 								<ul>
-									<li th:each="coach : ${act.coachs}" th:text="|${coach.nom} ${coach.prenom}|"></li>
+									<li th:each="coach : ${act.coachs}"><a
+										th:href="@{/coachs/profil/{id} (id=${coach.id})}"
+										th:text="|${coach.nom} ${coach.prenom}|"></a></li>
 								</ul>
 							</td>
 							<td><a href="#" class="btn btn-primary"

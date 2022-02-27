@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.club.artistique.entities.Activite;
 import com.club.artistique.entities.Coach;
 import com.club.artistique.forms.CoachForm;
+import com.club.artistique.forms.CoachProfil;
 import com.club.artistique.services.ActiviteService;
 import com.club.artistique.services.CoachService;
 
@@ -88,6 +90,28 @@ public class CoachController {
 		model.addAttribute(NEW_COACH, coachForm);
 		model.addAttribute(LES_ACTIVITES, activiteService.findAll());
 		return ADD_EDIT_COACH;
+	}
+
+	@GetMapping("/profil/{id}")
+	public String shwoCoach(@PathVariable Integer id, Model model) {
+		final Optional<Coach> optCoach = coachService.findById(id);
+		if (!optCoach.isPresent()) {
+			model.addAttribute("errorMessage", "Activité non trouvée");
+			return "redirect:error";
+		}
+		final CoachProfil coachProfil = new CoachProfil();
+		coachProfil.setId(id);
+		coachProfil.setNom(optCoach.get().getNom());
+		coachProfil.setPrenom(optCoach.get().getPrenom());
+		coachProfil.setBio(optCoach.get().getBio());
+		coachProfil.setListActivites(optCoach.get().getMesActivites());
+		if (!StringUtils.hasLength(optCoach.get().getPhoto())) {
+			coachProfil.setPhoto("coach-profil.png");
+		} else {
+			coachProfil.setPhoto(optCoach.get().getPhoto());
+		}
+		model.addAttribute("coach", coachProfil);
+		return "show-coach-profil";
 	}
 
 	@GetMapping("/delete/{id}")

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>Les seances</h1>
+				<table border="1" class="table">
+					<thead>
+						<tr>
+							<th>Activité</th>
+							<th>Coach</th>
+							<th>date de debut</th>
+							<th>date de fin</th>
+							<td>Actions</td>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${lesSeances.empty}">
+							<td colspan="3">Pas des seances</td>
+						</tr>
+						<tr th:each="seance : ${lesSeances}">
+							<td th:text="${seance.activite.titre}"></td>
+							<td th:text="|${seance.coach.nom} ${seance.coach.prenom}|"></td>
+							<td th:text="${seance.startTime}"></td>
+							<td th:text="${seance.endTime}"></td>
+							<td>
+							<a href="#" class="btn btn-primary"
+								style="position: relative;"
+								th:href="@{/seances/edit/{id} (id=${seance.id})}">Modifier</a> |
+								<a th:href="@{/seances/delete/{id} (id=${seance.id})}"
+								class="btn btn-danger" style="position: relative;">Supprimer</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

@@ -27,6 +27,8 @@ public class Coach {
 	private Integer id;
 	private String nom;
 	private String prenom;
+	private String bio;
+	private String photo;
 	@OneToMany(mappedBy = "coach")
 	private List<Seance> mesSeances = new ArrayList<>();
 	@ManyToMany
